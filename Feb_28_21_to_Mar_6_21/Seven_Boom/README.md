@@ -1,5 +1,5 @@
 My solution for Seven Boom at https://edabit.com/challenge/6R6gReGTGwzpwuffD 
-Instructions copied below for convenience.
+Instructions copied below.
 
 Create a function that takes an array of numbers and return "Boom!" if the digit 7 appears in the array. Otherwise, return "there is no 7 in the array".
 
