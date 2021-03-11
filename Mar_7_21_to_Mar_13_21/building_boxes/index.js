@@ -24,9 +24,30 @@ var minimumBoxes = function(n) {
 
 };
 
-function calculate(x) {
+function calculateFOfX(x) {
     // f(x) = f(x-1) + x + 1 where f(-1) = 0
-    
+    let currentBoxesOnFloor
+    let total = 0
+    for (let i = 0; i < (x+1); i++) {
+        if (i === 0) {
+            currentBoxesOnFloor = 1
+        } else {
+            currentBoxesOnFloor += i + 1
+        }
+        total += currentBoxesOnFloor
+    }
+    return [currentBoxesOnFloor, total]
+}
+
+function getValues(n) {
+    let maxBoxes = 0
+    let maxBoxesOnFloor = 0
+    let i
+    for (i = 0; maxBoxes < n; i++) {
+        [maxBoxesOnFloor, maxBoxes] = calculateFOfX(i)
+    }
+    let minBoxesOnFloor = calculateFOfX(i-2)[0]
+    return [maxBoxesOnFloor, minBoxesOnFloor]
 }
 
 function addLevel(currentLevel, currentNumber, target) {
@@ -44,7 +65,7 @@ function addLevel(currentLevel, currentNumber, target) {
     //console.log(nextBlocksOnFloor, currentNumber, newSum)
     return [nextBlocksOnFloor, currentNumber, newSum]
 }
-
+/*
 minimumBoxes(3);
 console.log("--------")
 minimumBoxes(4);
@@ -52,6 +73,8 @@ console.log("--------")
 minimumBoxes(10);
 console.log("--------")
 minimumBoxes(14);
+*/
+console.log(getValues(3))
 
 
 /*
