@@ -1,23 +1,58 @@
 var minimumBoxes = function(n) {
-    addLevel(0, 1, n)
+    console.log(n)
+    let [next, current, sum] = addLevel(0, 1, n)
+    let result = 0
+    console.log(next, current, sum)
+    if (n > (next + current) ) {
+        /*
+        for (let i = 1; i < (next+1); i++ ) {
+            result += i
+        }
+        console.log(`${n} > (${next} + ${current}) = ` + result)
+        */
+       result = current
+       console.log(result)
+        return result
+    } else {
+        for (let i = 1; i < next; i++) {
+            result += i
+        }
+        result += (n - current)
+        console.log("not all blocks on floor " + result)
+        return result
+    }
+
 };
+
+function calculate(x) {
+    // f(x) = f(x-1) + x + 1 where f(-1) = 0
+    
+}
 
 function addLevel(currentLevel, currentNumber, target) {
     let newSum = 1
     let previousValue, nextBlocksOnFloor
     while (target > newSum) {
-        console.log("current value=", newSum)
+        //console.log("current value=", newSum)
         previousValue = newSum
         currentLevel++
         currentNumber += currentLevel + 1
         newSum = currentNumber + previousValue
-        console.log(currentNumber, newSum)
+        //console.log(currentNumber, newSum)
     }
     nextBlocksOnFloor = currentLevel + 1 // if nextBlocksOnFloor + currentNumber + 1 > target then number of blocks placed are only on the floor
-    console.log(nextBlocksOnFloor, currentNumber, newSum)
+    //console.log(nextBlocksOnFloor, currentNumber, newSum)
+    return [nextBlocksOnFloor, currentNumber, newSum]
 }
 
-minimumBoxes(12);
+minimumBoxes(3);
+console.log("--------")
+minimumBoxes(4);
+console.log("--------")
+minimumBoxes(10);
+console.log("--------")
+minimumBoxes(14);
+
 
 /*
 I had to figure out a pattern and make a math function f(x) out of how does the total number of blocks change each *full* level placed
