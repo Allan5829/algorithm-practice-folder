@@ -1,28 +1,35 @@
 var minimumBoxes = function(n) {
+    let [minBoxes, minTotal] = getValues(n)
     //console.log(n)
-    let [maxBoxes, maxTotal, minBoxes, minTotal] = getValues(n)
-    //console.log(maxBoxes, maxTotal, minBoxes, minTotal)
+    //console.log(minBoxes, minTotal) 
+    // minBoxes represents the minimum amount of boxes that have to be on the floor -1
+    // this value is the starting point, like 0 would be, that we keep adding 1 until we get the result
     let result = minBoxes
     
     if (n === 1) {
         return 1
     }
     
-    let wait
+    // actions represent how many blocks are left to add to the new layer (1 box = 1 layer, 4 boxes = 2 layers, 10 = 3 layers)
+    // due to the fact that not every block added touches the floor there's a variable(wait) to account for when a block isn't 
+    // placed on the floor
     let actions = (n - minTotal)
-    while (actions > 0) {
-        
+    // wait represents the number of actions that don't add a block to the floor, we use that value to "skip" those actions dynamically
+    let wait
+
+    while (actions > 0) { // while there are blocks that need to be placed
+        // if there are any blocks that won't be placed on the floor we "place"/wait those first
         if (!!wait || wait === 0) {
             actions -= wait
             wait += 1
-        } else if (!wait) {
+        } else if (!wait) { // first time placing block we wait 0 times
             wait = 0
         } 
-        if (actions > 0) {
+
+        if (actions > 0) { // only update result if there are any actions left
             result += 1
             actions -= 1 
         }
-        
         //console.log(result, wait, actions)
         //console.log("--------")
     }
@@ -53,12 +60,12 @@ function getValues(n) {
         [maxBoxes, maxTotal] = calculateFOfX(i)
     }
     let [minBoxes, minTotal] = calculateFOfX(i-2)
-    return [maxBoxes, maxTotal, minBoxes, minTotal]
+    return [minBoxes, minTotal]
 }
 
 console.log(minimumBoxes(3))
 console.log("--------")
-console.log(minimumBoxes(4))
+console.log(minimumBoxes(1))
 console.log("--------")
 console.log(minimumBoxes(10))
 console.log("--------")
@@ -79,7 +86,6 @@ f(0) = 1, f(1) = 3, f(2) = 6, f(3) = 10, f(4) = 15
 1 3 6 10 = 20 "10 blocks touching floor and 4 levels"
 1 3 6 10 15 = 35 "15 blocks touching floor and 5 levels"
 
-If n is greater than "current boxes" add another level until "cb" >= to n
             20(+0)  
         16(+0) 19(+0)
     13(+0) 15(+0) 18(+0)
