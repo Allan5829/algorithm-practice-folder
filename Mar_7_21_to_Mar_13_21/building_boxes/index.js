@@ -1,13 +1,33 @@
 var minimumBoxes = function(n) {
-    console.log(n)
+    //console.log(n)
     let [maxBoxes, maxTotal, minBoxes, minTotal] = getValues(n)
-    console.log(maxBoxes, maxTotal, minBoxes, minTotal)
-
-    if (n >= maxTotal) {
-        return maxBoxes
-    } else {
-        return ( (n - minTotal) + minBoxes )
+    //console.log(maxBoxes, maxTotal, minBoxes, minTotal)
+    let result = minBoxes
+    
+    if (n === 1) {
+        return 1
     }
+    
+    let wait
+    let actions = (n - minTotal)
+    while (actions > 0) {
+        
+        if (!!wait || wait === 0) {
+            actions -= wait
+            wait += 1
+        } else if (!wait) {
+            wait = 0
+        } 
+        if (actions > 0) {
+            result += 1
+            actions -= 1 
+        }
+        
+        //console.log(result, wait, actions)
+        //console.log("--------")
+    }
+    //result = result + actions
+    return result
 };
 
 function calculateFOfX(x) {
@@ -42,7 +62,7 @@ console.log(minimumBoxes(4))
 console.log("--------")
 console.log(minimumBoxes(10))
 console.log("--------")
-console.log(minimumBoxes(15))
+console.log(minimumBoxes(13))
 
 
 /*
