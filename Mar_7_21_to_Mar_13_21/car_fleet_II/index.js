@@ -1,5 +1,18 @@
 var getCollisionTimes = function(cars) {
-    console.log(cars)
+    let result = []
+
+    for (let i = 0; i < cars.length; i++) {
+        if (i === cars.length - 1) {
+            result.push(-1) // when last car
+        } else if (cars[i][1] < cars[i+1][1]) {
+            result.push(-1) // when next car is faster than current car
+        } else {
+            //loop?
+        }
+    }
+
+    console.log(result)
+    return result
 };
 
 getCollisionTimes([[1,2],[2,1],[4,3],[7,2]])
