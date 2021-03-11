@@ -1,40 +1,13 @@
 var minimumBoxes = function(n) {
     console.log(n)
-    let [maxBoxes, minBoxes, minTotal] = getValues(n)
-    //console.log(maxBoxes, minBoxes, minTotal)
+    let [maxBoxes, maxTotal, minBoxes, minTotal] = getValues(n)
+    console.log(maxBoxes, maxTotal, minBoxes, minTotal)
 
-    if (n >= maxBoxes) {
+    if (n >= maxTotal) {
         return maxBoxes
     } else {
         return ( (n - minTotal) + minBoxes )
     }
-
-
-
-
-
-    /* first solution not successful
-    let [next, current, sum] = addLevel(0, 1, n)
-    let result = 0
-    console.log(next, current, sum)
-    if (n > (next + current) ) {
-        for (let i = 1; i < (next+1); i++ ) {
-            result += i
-        }
-        console.log(`${n} > (${next} + ${current}) = ` + result)
-       result = current
-       console.log(result)
-        return result
-    } else {
-        for (let i = 1; i < next; i++) {
-            result += i
-        }
-        result += (n - current)
-        console.log("not all blocks on floor " + result)
-        return result
-    }
-    */
-
 };
 
 function calculateFOfX(x) {
@@ -53,38 +26,23 @@ function calculateFOfX(x) {
 }
 
 function getValues(n) {
+    let maxTotal = 0
     let maxBoxes = 0
-    let maxBoxesOnFloor = 0
     let i
-    for (i = 0; maxBoxes < n; i++) {
-        [maxBoxesOnFloor, maxBoxes] = calculateFOfX(i)
+    for (i = 0; maxTotal < n; i++) {
+        [maxBoxes, maxTotal] = calculateFOfX(i)
     }
-    let [minBoxesOnFloor, minTotal] = calculateFOfX(i-2)
-    return [maxBoxesOnFloor, minBoxesOnFloor, minTotal]
+    let [minBoxes, minTotal] = calculateFOfX(i-2)
+    return [maxBoxes, maxTotal, minBoxes, minTotal]
 }
-
-function addLevel(currentLevel, currentNumber, target) {
-    let newSum = 1
-    let previousValue, nextBlocksOnFloor
-    while (target > newSum) {
-        //console.log("current value=", newSum)
-        previousValue = newSum
-        currentLevel++
-        currentNumber += currentLevel + 1
-        newSum = currentNumber + previousValue
-        //console.log(currentNumber, newSum)
-    }
-    nextBlocksOnFloor = currentLevel + 1 // if nextBlocksOnFloor + currentNumber + 1 > target then number of blocks placed are only on the floor
-    //console.log(nextBlocksOnFloor, currentNumber, newSum)
-    return [nextBlocksOnFloor, currentNumber, newSum]
-}
-
 
 console.log(minimumBoxes(3))
 console.log("--------")
 console.log(minimumBoxes(4))
 console.log("--------")
 console.log(minimumBoxes(10))
+console.log("--------")
+console.log(minimumBoxes(15))
 
 
 /*
@@ -102,5 +60,8 @@ f(0) = 1, f(1) = 3, f(2) = 6, f(3) = 10, f(4) = 15
 1 3 6 10 15 = 35 "15 blocks touching floor and 5 levels"
 
 If n is greater than "current boxes" add another level until "cb" >= to n
-
+            20(+0)  
+        16(+0) 19(+0)
+    13(+0) 15(+0) 18(+0)
+11(+1) 12(+1) 14(+1) 17(+1) 
 */
