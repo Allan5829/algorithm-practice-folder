@@ -1,15 +1,27 @@
 var minimumBoxes = function(n) {
     console.log(n)
+    let [maxBoxes, minBoxes, minTotal] = getValues(n)
+    //console.log(maxBoxes, minBoxes, minTotal)
+
+    if (n >= maxBoxes) {
+        return maxBoxes
+    } else {
+        return ( (n - minTotal) + minBoxes )
+    }
+
+
+
+
+
+    /* first solution not successful
     let [next, current, sum] = addLevel(0, 1, n)
     let result = 0
     console.log(next, current, sum)
     if (n > (next + current) ) {
-        /*
         for (let i = 1; i < (next+1); i++ ) {
             result += i
         }
         console.log(`${n} > (${next} + ${current}) = ` + result)
-        */
        result = current
        console.log(result)
         return result
@@ -21,6 +33,7 @@ var minimumBoxes = function(n) {
         console.log("not all blocks on floor " + result)
         return result
     }
+    */
 
 };
 
@@ -46,8 +59,8 @@ function getValues(n) {
     for (i = 0; maxBoxes < n; i++) {
         [maxBoxesOnFloor, maxBoxes] = calculateFOfX(i)
     }
-    let minBoxesOnFloor = calculateFOfX(i-2)[0]
-    return [maxBoxesOnFloor, minBoxesOnFloor]
+    let [minBoxesOnFloor, minTotal] = calculateFOfX(i-2)
+    return [maxBoxesOnFloor, minBoxesOnFloor, minTotal]
 }
 
 function addLevel(currentLevel, currentNumber, target) {
@@ -65,16 +78,13 @@ function addLevel(currentLevel, currentNumber, target) {
     //console.log(nextBlocksOnFloor, currentNumber, newSum)
     return [nextBlocksOnFloor, currentNumber, newSum]
 }
-/*
-minimumBoxes(3);
+
+
+console.log(minimumBoxes(3))
 console.log("--------")
-minimumBoxes(4);
+console.log(minimumBoxes(4))
 console.log("--------")
-minimumBoxes(10);
-console.log("--------")
-minimumBoxes(14);
-*/
-console.log(getValues(3))
+console.log(minimumBoxes(10))
 
 
 /*
