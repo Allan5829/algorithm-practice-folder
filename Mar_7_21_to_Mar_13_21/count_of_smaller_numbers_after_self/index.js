@@ -1,0 +1,3 @@
+var countSmaller = function(nums) {
+    
+};
