@@ -1,3 +1,6 @@
+// I failed to realize that the input is linked lists and those behave differently to arrays. The current state of this algorithm
+// solves arrays as input but not linked lists. 
+
 const addTwoNumbers = function(l1, l2) {
     let [ result, carryNum, carry, longestNum] = [ [], 0, false, longestLength(l1.length, l2.length)]
     let [x, y, sum] = [0, 0, 0]
