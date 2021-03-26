@@ -23,8 +23,7 @@ class LinkedList{
         this.size = 0;
     }
 
-    //CRUD functions
-
+    //Create
     add(data) {
         let newNode = new Node(data)
         let currentNode
@@ -64,12 +63,7 @@ class LinkedList{
         }
     }
 
-    updateNode(index, newData){ //update a node at index with new data 
-        let node = this.nodeAt(index)
-        node.data = newData
-        console.log(node)
-    }
-
+    //Read
     nodeAt(index) { // return node at index position given
         let node = this.head
         if (index > this.size) return false
@@ -77,6 +71,69 @@ class LinkedList{
             node = node.next;
         }
         return node;
+    }
+
+    indexFor(data){ // returns index position for data given
+        let index = 0
+        let currentNode = this.head
+        while (currentNode != null) {
+            if (currentNode.data === data)
+                return index;
+            index++;
+            currentNode = currentNode.next;
+        }
+        return -1
+    }
+
+    //Update
+    updateNode(index, newData){ //update a node at index with new data 
+        let node = this.nodeAt(index)
+        node.data = newData
+        console.log(node)
+    }
+
+    //Destroy
+    removeFrom(index) { // removes node at index
+        if (index > 0 && index > this.size){ 
+            return -1
+        } else {
+            let removeNode, previousNode
+            if(index === 0){
+                //console.log(this.head)
+                this.head = this.head.next
+                //console.log(this.head)
+            } else {
+                previousNode = this.nodeAt(index -1)
+                //console.log(previousNode)
+                removeNode = previousNode.next
+                previousNode.next = removeNode.next
+                //console.log(previousNode)
+            }    
+            this.size --
+        }
+    }
+
+    removeData(data){ // removes node using data
+        let currentNode = this.head
+        let previousNode = null
+        while(currentNode != null) {
+            if (currentNode.data === data) {
+                if (previousNode == null) {
+                    //console.log(this.head)
+                    this.head = currentNode.next
+                    //console.log(this.head)
+                } else {
+                    //console.log(previousNode, "--------")
+                    previousNode.next = currentNode.next
+                    //console.log(previousNode)
+                }
+                this.size --
+                return currentNode.data
+            }
+            previousNode = currentNode
+            currentNode = currentNode.next
+        }
+        return -1
     }
 
 }
@@ -90,4 +147,10 @@ list.add("d")
 //console.log(list)
 //list.addAt(1, 3)
 //list.updateNode(1, "thisistesttext")
+//list.removeFrom(0)
+//list.removeFrom(1)
+//list.removeData("b")
+//list.removeData("c")
+//list.removeData("d")
+//console.log(list.indexFor("b"), list.indexFor("c"), list.indexFor("d"))
 //console.log(list.nodeAt(0), list.nodeAt(1), list.nodeAt(2), list.nodeAt(3))
