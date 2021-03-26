@@ -41,7 +41,35 @@ class LinkedList{
         this.size ++
     }
 
-    //node information functions
+    addAt(data, index) {
+        if (index > 0 && index > this.size){ 
+            return false
+        } else {
+            let newNode = new Node(data)
+            let previousNode, nextNode
+
+            switch(index){
+                case 0:
+                    newNode.next = this.head
+                    this.head = newNode
+                    //console.log(this.head, this.head.next)
+                default:
+                    previousNode = this.nodeAt(index - 1)
+                    nextNode = previousNode.next
+                    previousNode.next = newNode
+                    newNode.next = nextNode
+                    //console.log(previousNode, newNode, nextNode)
+            }
+            this.size ++
+        }
+    }
+
+    updateNode(index, newData){ //update a node at index with new data 
+        let node = this.nodeAt(index)
+        node.data = newData
+        console.log(node)
+    }
+
     nodeAt(index) { // return node at index position given
         let node = this.head
         if (index > this.size) return false
@@ -59,33 +87,7 @@ let list = new LinkedList()
 list.add("b")
 list.add("c")
 list.add("d")
-console.log(list, list.nodeAt(4))
-
-// Current example creates a linked list by using arrays as nodes stored in an object.
-let firstNode = ['cameron', 123]
-let secondNode = ['sloane', 132]
-let thirdNode = ['ferris', null]
-
-let collection = {0: firstNode, 123: secondNode, 132: thirdNode}
-let head = collection[0];
-
-function next(node){
-    let nextAddress = node[1] 
-    return collection[nextAddress]
-}
-
-function indexAt(head, index){
-    let node = head;
-    for(i = 0; i < index; i++){
-        node = next(node);
-    }
-    return node;
-}
-
-function insertAfter(node, newnode){
-
-}
-// add crud functions
-//console.log(next(firstNode))
-//console.log(next(thirdNode))
-//console.log(indexAt(head, 2))
+//console.log(list)
+//list.addAt(1, 3)
+//list.updateNode(1, "thisistesttext")
+//console.log(list.nodeAt(0), list.nodeAt(1), list.nodeAt(2), list.nodeAt(3))
